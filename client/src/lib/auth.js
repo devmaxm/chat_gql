@@ -31,6 +31,22 @@ export async function login(username, password) {
   return null;
 }
 
+export async function register(username, password, passwordConfirm) {
+  const response = await fetch(`${API_URL}/register`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ username, password, passwordConfirm }),
+  });
+  if (response.ok) {
+    const { token } = await response.json();
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    return username;
+  }
+  return null;
+}
+
 export function logout() {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
 }

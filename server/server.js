@@ -3,7 +3,7 @@ import {expressMiddleware as apolloMiddleware} from '@apollo/server/express4';
 import cors from 'cors';
 import express from 'express';
 import {readFile} from 'node:fs/promises';
-import {authMiddleware, decodeToken, handleLogin} from './auth.js';
+import {authMiddleware, decodeToken, handleLogin, handleRegister} from './auth.js';
 import {resolvers} from './resolvers.js';
 import { WebSocketServer } from 'ws';
 import {createServer as createHttpServer} from 'node:http'
@@ -18,6 +18,7 @@ const app = express();
 app.use(cors(), express.json());
 
 app.post('/login', handleLogin);
+app.post('/register', handleRegister);
 
 function getHttpContext({req}) {
     if (req.auth) {
@@ -49,5 +50,4 @@ useWsServer({schema, context: getWsContext}, wsServer)
 
 httpServer.listen({port: PORT}, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`GraphQL endpoint: http://localhost:${PORT}/graphql`);
 });

@@ -1,18 +1,21 @@
 import {useState} from 'react';
-import {login} from '../lib/auth';
-import {NavLink} from "react-router-dom";
+import {register} from '../lib/auth';
+import {NavLink, useNavigate} from "react-router-dom";
 
 function LoginForm({onLogin}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [error, setError] = useState(false);
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError(false);
-        const user = await login(username, password);
+        const user = await register(username, password, passwordConfirm);
         if (user) {
             onLogin(user);
+            navigate('/')
         } else {
             setError(true);
         }
@@ -45,23 +48,33 @@ function LoginForm({onLogin}) {
                             />
                         </div>
                     </div>
+                    <div className="field">
+                        <label className="label">
+                            Password confirm
+                        </label>
+                        <div className="control">
+                            <input className="input" type="password" required
+                                   value={passwordConfirm} onChange={(event) => setPasswordConfirm(event.target.value)}
+                            />
+                        </div>
+                    </div>
                     {error && (
                         <div className="message is-danger">
                             <p className="message-body">
-                                Login failed
+                                Register failed
                             </p>
                         </div>
                     )}
                     <div className="field">
                         <div className="control">
                             <button type="submit" className="button is-link">
-                                Login
+                                Register
                             </button>
                         </div>
                     </div>
                     <div className="field">
                         <div className="control">
-                          <NavLink to='/register'>Register</NavLink>
+                            <NavLink to='/'>Login</NavLink>
                         </div>
                     </div>
                 </form>
