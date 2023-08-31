@@ -27,15 +27,15 @@ await connection.table('message').insert([
 await connection.table('user').insert([
   {
     username: 'alice',
-    password: 'alice123',
+    password: '$2b$05$kZFl9PQICZ9LdqyfC/YZnO3Zg0gqZEVvL5H8Zj0MSq/yAc9BF54fm',
   },
   {
     username: 'bob',
-    password: 'bob123',
+    password: '$2b$05$kZFl9PQICZ9LdqyfC/YZnO3Zg0gqZEVvL5H8Zj0MSq/yAc9BF54fm',
   },
   {
     username: 'charlie',
-    password: 'charlie123',
+    password: '$2b$05$kZFl9PQICZ9LdqyfC/YZnO3Zg0gqZEVvL5H8Zj0MSq/yAc9BF54fm',
   },
 ]);
 

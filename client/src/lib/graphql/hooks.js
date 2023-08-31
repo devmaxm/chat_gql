@@ -10,8 +10,6 @@ export function useAddMessage() {
     });
     return message;
   };
-
-
   return { addMessage };
 }
 
@@ -19,6 +17,7 @@ export function useMessages() {
   const { data, loading, error } = useQuery(messagesQuery);
   useSubscription(messageAddedSubscription, {
     onData: ({ client, data }) => {
+
       const newMessage = data.data.message;
       client.cache.updateQuery({ query: messagesQuery }, ( {messages} ) => {
         console.log(data)

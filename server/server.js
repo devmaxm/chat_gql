@@ -9,8 +9,10 @@ import { WebSocketServer } from 'ws';
 import {createServer as createHttpServer} from 'node:http'
 import {useServer as useWsServer} from "graphql-ws/lib/use/ws";
 import {makeExecutableSchema} from "@graphql-tools/schema";
+import {config} from 'dotenv'
+config()
 
-const PORT = 9000;
+const PORT = process.env.PORT | 9000;
 
 const app = express();
 app.use(cors(), express.json());
